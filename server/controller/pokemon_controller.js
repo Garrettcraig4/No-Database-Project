@@ -15,6 +15,7 @@ const getPokemonName = (req, res, next) => {
     .get(`https://pokeapi.co/api/v1/pokedex/1/`)
     .then(responce => {
       randomPoke = responce.data.pokemon[randoN(0, 777)];
+      console.log(randomPoke);
       res.json(randomPoke);
     })
     .catch(console.log());
@@ -35,7 +36,12 @@ const deleteOnePokemon = (req, res, next) => {
   res.status(200).send(userList);
 };
 
-const updateUserTitle = (req, res, next) => {};
+const updateUserTitle = (req, res, next) => {
+  const { title } = req.body;
+  // const { update } = req.params.id;
+  userListTitle = title;
+  res.status(200).send(userListTitle);
+};
 
 // const getPokemonStats = (req, res, next) => {
 //   axios.get(`https://pokeapi.co/api/v1`).then(response => {
@@ -52,6 +58,7 @@ module.exports = {
   getPokemonName: getPokemonName,
   getUserList: getUserList,
   deletePokemon: deletePokemon,
-  deleteOnePokemon: deleteOnePokemon
+  deleteOnePokemon: deleteOnePokemon,
+  updateUserTitle
   // getPokemonStats: getPokemonStats
 };

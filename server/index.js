@@ -17,12 +17,13 @@ app.use(cors());
 app.use(express());
 
 app.get("/api/randomPoke", getPokemonName);
-app.get("/api/userList", getUserList);
+app.post("/api/userList", getUserList);
+app.put("/api/userListTitle", updateUserTitle);
 // add.get("/api/pokeStats", getPokemonStats);
 app.delete("/api/userList", deletePokemon);
 app.delete("/api/userList/:id", deleteOnePokemon);
 
-app.post("/api/userListTitle"), updateUserTitle;
+//app.post("/api/userListTitle", updateUserTitle);
 // change title
 app.listen(port, () => {
   console.log(`Listening on port: ${port}`);

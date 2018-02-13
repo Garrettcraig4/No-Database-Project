@@ -5,12 +5,14 @@ class List extends Component {
     super();
     this.state = {
       YourList: [],
-      title: ""
+      title: "",
+      displayTitle: ""
     };
     this.updateTitle = this.updateTitle.bind(this);
     this.getuserList = this.getuserList.bind(this);
     this.deletePokemon = this.deletePokemon.bind(this);
     this.deleteOnePokemon = this.deleteOnePokemon.bind(this);
+    this.sendTitle = this.sendTitle.bind(this);
   }
   /*
 1. create a delete method
@@ -19,18 +21,27 @@ class List extends Component {
 4. put component inside .map method 
 5. create endpoint for delete 
 */
+  // editTitle(id,title){
+  // axios.put(`http;//localhost:3001/api/userListTitle/${id}`)
+  // .then(response => {
+  //   this.setState({title: response.data});
+  // });
+  // }
+
   updateTitle(e) {
     console.log(e);
     this.setState({
       title: e.target.value
     });
-    // axios
-    // .post(`http://localhost:3001/api/userListTitle`)
-    // .then(response => {
-
-    // })
   }
 
+  sendTitle() {
+    axios
+      .put(`http://localhost:3001/api/userListTitle`, {
+        title: this.state.title
+      })
+      .then(response => this.setState({ displayTitle: response.data }));
+  }
   deleteOnePokemon(pokeIndex) {
     axios
       .delete(`http://localhost:3001/api/userList/${pokeIndex}`)
@@ -46,7 +57,7 @@ class List extends Component {
   }
 
   getuserList() {
-    axios.get("http://localhost:3001/api/userList").then(response => {
+    axios.post("http://localhost:3001/api/userList").then(response => {
       console.log(response);
       this.setState({ YourList: response.data });
     });
@@ -65,13 +76,15 @@ class List extends Component {
     });
     return (
       <div className="List">
-        <h1 className="usertitle"> {this.state.title}</h1>
+        <h1 className="usertitle"> {this.state.displayTitle}</h1>
         <input
           type="text"
           value={this.state.title}
-          onChange={this.updateTitle}
+          onChange={e => this.updateTitle(e)}
         />
-
+        <button id="savetitle" onClick={this.sendTitle}>
+          Save title
+        </button>
         <button id="addToList" onClick={() => this.getuserList()}>
           Add to your list
         </button>
