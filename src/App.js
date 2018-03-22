@@ -4,6 +4,7 @@ import "./App.css";
 import axios from "axios";
 import RandomPokemon from "./components/Randompokemon";
 import List from "./components/List";
+import Time from "./components/time";
 class App extends Component {
   componentDidMount() {
     axios.get(`https://pokeapi.co/api/v1/pokedex/1/`).then(response => {
@@ -15,7 +16,7 @@ class App extends Component {
     return (
       <div className="App">
         <h1 id="title">POKÉMON NAME GENERATOR </h1>
-
+        <Time />
         <RandomPokemon />
         <List />
       </div>
